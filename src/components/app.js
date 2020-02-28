@@ -1,11 +1,25 @@
-import React, { Component } from 'react';
+import React from "react";
+import Display from "./Display";
+import ButtonPanel from "./ButtonPanel";
+import calculate from "../logic/calculate";
+import "./App.css";
 
-export default class App extends Component {
+export default class App extends React.Component {
+  state = {
+    total: null,
+    next: null,
+    operation: null,
+  };
+
+  handleClick = buttonName => {
+    this.setState(calculate(this.state, buttonName));
+  };
+
   render() {
     return (
-      <div className='app'>
-        <h1>DevCamp React Starter</h1>
-        <h2>React Redux Router</h2>
+      <div className="component-app">
+        <Display value={this.state.next || this.state.total || "0"} />
+        <ButtonPanel clickHandler={this.handleClick} />
       </div>
     );
   }
